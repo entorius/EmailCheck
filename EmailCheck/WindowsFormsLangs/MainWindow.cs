@@ -56,7 +56,7 @@ namespace EmailCheck
         private void Button_AddAccount_Click(object sender, EventArgs e)
         {
             ChooseAccount chooseAccount = new ChooseAccount(this);
-
+            this.Enabled = false;
             chooseAccount.Show();
         }
 

@@ -23,6 +23,7 @@ namespace EmailCheck
             InitializeComponent();
             this.chooseAccountWindow = chooseAccountWindow;
             Button_AddAccount.Enabled = false;
+            
         }
 
         private async void Button_AddAccount_Click(object sender, EventArgs e)
@@ -61,5 +62,6 @@ namespace EmailCheck
         {
             Button_AddAccount.Enabled = TextBox_Email.Text.Length == 0 || TextBox_Password.Text.Length == 0 ? false : true;
         }
+ 
     }
 }

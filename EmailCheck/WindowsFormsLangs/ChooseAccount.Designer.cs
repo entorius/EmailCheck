@@ -63,6 +63,7 @@
             this.ListBox_Accounts.Name = "ListBox_Accounts";
             this.ListBox_Accounts.Size = new System.Drawing.Size(517, 164);
             this.ListBox_Accounts.TabIndex = 4;
+            this.ListBox_Accounts.SelectedIndexChanged += new System.EventHandler(this.ListBox_Accounts_SelectedIndexChanged);
             // 
             // ChooseAccount
             // 

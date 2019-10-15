@@ -17,11 +17,13 @@ namespace EmailCheck
         {
             InitializeComponent();
             this.mainWindow = mainWindow;
+            this.FormClosed += ClosedHandler;
             Console.WriteLine(mainWindow.allUsers.Count);
             foreach(User user in mainWindow.allUsers)
             {
                 ListBox_Accounts.Items.Add(user.GetEmail());
             }
+
         }
 
         private void AddAccount_Button_Click(object sender, EventArgs e)
@@ -33,11 +35,29 @@ namespace EmailCheck
 
         private void Button_ChooseAccount_Click(object sender, EventArgs e)
         {
-            string selectedEmail = ListBox_Accounts.SelectedItem.ToString();
-            User user = mainWindow.allUsers.Find(x => x.GetEmail() == selectedEmail);
-            mainWindow.currentUser = user;
-            this.mainWindow.email_Name_Box.Text = "Current account: " + mainWindow.currentUser.GetEmail();
-            this.Dispose();
+            if (ListBox_Accounts.SelectedItem == null)
+            {
+                Warning warning = new Warning("Jūs nepasirinkote vartotojo");
+                warning.Show();
+            }
+            else
+            {
+                string selectedEmail = ListBox_Accounts.SelectedItem.ToString();
+                User user = mainWindow.allUsers.Find(x => x.GetEmail() == selectedEmail);
+                mainWindow.currentUser = user;
+                this.mainWindow.email_Name_Box.Text = "Current account: " + mainWindow.currentUser.GetEmail();
+                this.mainWindow.Enabled = true;
+                this.Dispose();
+            }
+        }
+
+        private void ListBox_Accounts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            AddAccount_Button.Enabled = true;
+        }
+        protected void ClosedHandler(object sender, EventArgs e)
+        {
+            this.mainWindow.Enabled = true;
         }
     }
 }
