@@ -12,15 +12,24 @@ namespace EmailCheck
 {
     public partial class Warning : Form
     {
-        public Warning(string warningMessage)
+        Form form;
+        public Warning(Form form,string warningMessage)
         {
             InitializeComponent();
             this.TextBox_Warning.Text = warningMessage;
+            this.FormClosed += ClosedHandler;
+            this.form = form;
+            this.form.Enabled = false;
         }
 
         private void Button_OK_Click(object sender, EventArgs e)
         {
             this.Dispose();
+            this.form.Enabled = true;
+        }
+        protected void ClosedHandler(object sender, EventArgs e)
+        {
+            this.form.Enabled = true;
         }
     }
 }

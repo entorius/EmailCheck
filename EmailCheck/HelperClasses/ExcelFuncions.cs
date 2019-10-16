@@ -10,7 +10,6 @@ namespace EmailCheck
         public static List<string> GetEmailsFromFile(string ExcelFileLocation)          //this function gets all email addresses from A1 to An cells from excel file
         {
             List<string> emails = new List<string>();
-            Console.WriteLine(ExcelFileLocation);
             FileInfo excelFile = new FileInfo(ExcelFileLocation);
             ExcelPackage pck = new ExcelPackage(excelFile);
             var ws = pck.Workbook.Worksheets[1];
@@ -21,10 +20,6 @@ namespace EmailCheck
                 string value = ws.Cells[counter,1].Value.ToString();
                 emails.Add(value);
                 counter++;
-            }
-            foreach (string email in emails)
-            {
-                Console.WriteLine(email + "gg");
             }
             return emails;
         }

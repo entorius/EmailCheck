@@ -18,7 +18,6 @@ namespace EmailCheck
             InitializeComponent();
             this.mainWindow = mainWindow;
             this.FormClosed += ClosedHandler;
-            Console.WriteLine(mainWindow.allUsers.Count);
             foreach(User user in mainWindow.allUsers)
             {
                 ListBox_Accounts.Items.Add(user.GetEmail());
@@ -37,7 +36,7 @@ namespace EmailCheck
         {
             if (ListBox_Accounts.SelectedItem == null)
             {
-                Warning warning = new Warning("Jūs nepasirinkote vartotojo");
+                Warning warning = new Warning(this,"Jūs nepasirinkote vartotojo");
                 warning.Show();
             }
             else

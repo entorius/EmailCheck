@@ -27,6 +27,7 @@ namespace EmailCheck
             this.dateFrom = dateFrom;
             this.dateTo = dateTo;
             this.mainWindow = mainWindow;
+            this.FormClosed += ClosedHandler;
             this.saveWithDate = saveWithDate;
         }
 
@@ -47,9 +48,9 @@ namespace EmailCheck
             {
                 excelFileName = TextBox_FileName.Text;
             }
-            Console.WriteLine(allEmails[1] + "es");
             ExcelFuncions.AddEmailsToFile(excelFileName, this.savingFolderName, allEmails);
             mainWindow.Show();
+            this.mainWindow.Enabled = true;
             this.Dispose();
 
         }
@@ -57,9 +58,14 @@ namespace EmailCheck
         private void Button_Reject_Click(object sender, EventArgs e)
         {
             mainWindow.Show();
+            this.mainWindow.Enabled = true;
             this.Dispose();
         }
+        protected void ClosedHandler(object sender, EventArgs e)
+        {
+            this.mainWindow.Show();
+            this.mainWindow.Enabled = true;
+        }
 
-        
     }
 }

@@ -26,26 +26,20 @@ namespace EmailCheck
 
             string fileDirectory = Directory.GetParent(this.workingDirectory).Parent.FullName + @"\ConfidentialInformation\UsersEmailCredentials.txt";
             string allAccountsInformation = File.ReadAllText(fileDirectory);
-            Console.WriteLine("Totaloutside");
+            this.OpenFileDialog_ExportAddressList.Disposed += ClosedHandler;
             if (allAccountsInformation != "")
             {
                 List<string> allEmailsInformation = allAccountsInformation.Split(' ').ToList();
                 foreach (string email in allEmailsInformation)
                 {
-                    Console.WriteLine("--------------" + email + "---------------\n");
                 }
-                Console.WriteLine("Almoustoutside");
                 for (int i = 0; i < allEmailsInformation.Count; i = i + 3)
                 {
-                    Console.WriteLine("outside");
                     if (allEmailsInformation[i] != "")
                     {
-                        Console.WriteLine("inside");
                         string email = StringCipher.Decrypt(allEmailsInformation[i], "125847elpu68795");
                         string password = StringCipher.Decrypt(allEmailsInformation[i + 2], "125847elpu62195");
                         allUsers.Add(new User(email, password));
-                        Console.WriteLine(email);
-                        Console.WriteLine(password);
                     }
                 }
             }
@@ -62,7 +56,31 @@ namespace EmailCheck
 
         private async void Button_ExportAddressList_Click(object sender, EventArgs e)
         {
-            if (currentUser != null)
+            bool correctDate = true;
+            Warning DateWarning = new Warning(this,"Neteisinga data");
+            if (this.CheckBox_UseDates.Checked)
+            {
+                if (this.DateTimePicker_DateFrom.Value > this.DateTimePicker_DateTo.Value)
+                {
+                    DateWarning = new Warning(this,"Data nuo yra didesnė nei data iki");
+                    correctDate = false;
+                }
+                else if (DateTime.Now < this.DateTimePicker_DateTo.Value)
+                {
+                    DateWarning = new Warning(this,"Data iki pasirinkta ateityje");
+                    correctDate = false;
+                }
+                else if (DateTime.Now < this.DateTimePicker_DateFrom.Value)
+                {
+                    DateWarning = new Warning(this,"Data nuo pasirinkta ateityje");
+                    correctDate = false;
+                }
+            }
+            if (!correctDate)
+            {
+                DateWarning.Show();
+            }
+            else if (currentUser != null)
             {
                 this.Hide();
                 string strfoldername = "C://";
@@ -99,11 +117,12 @@ namespace EmailCheck
                 else
                 {
                     this.Show();
+                    this.Enabled = true;
                 }
             }
             else
             {
-                Warning warningWindow = new Warning("Jūs nepasirinkote vartotojo");
+                Warning warningWindow = new Warning(this,"Jūs nepasirinkote vartotojo");
                 warningWindow.Show();
             }
         }
@@ -133,8 +152,6 @@ namespace EmailCheck
                 
                 foreach (string email in allEmailsList)
                 {
-                    Console.WriteLine(email.Last());
-                    Console.WriteLine(email);
                     string newEmail = email.Remove(email.Count()-1);
                     //if (regex.IsMatch(email))
                     //{
@@ -167,7 +184,7 @@ namespace EmailCheck
             }
             else
             {
-                Warning warningWindow = new Warning("Jūs nepasirinkote vartotojo");
+                Warning warningWindow = new Warning(this,"Jūs nepasirinkote vartotojo");
                 warningWindow.Show();
             }
         }
@@ -191,7 +208,6 @@ namespace EmailCheck
                     }
                 }
             }
-            Console.WriteLine("something");
         }
 
         private void Button_EmailText_Click(object sender, EventArgs e)
@@ -206,6 +222,10 @@ namespace EmailCheck
             datePickerEnabled = datePickerEnabled == true ? false : true;
             DateTimePicker_DateTo.Enabled = datePickerEnabled;
             DateTimePicker_DateFrom.Enabled = datePickerEnabled;
+        }
+        protected void ClosedHandler(object sender, EventArgs e)
+        {
+            this.Show();
         }
     }
 }

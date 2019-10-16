@@ -19,6 +19,7 @@ namespace EmailCheck
         {
             InitializeComponent();
             this.mainWindow = mainWindow;
+            this.FormClosed += ClosedHandler;
             if (mail.GetBody() == "" || mail.GetSubject() == "")
             {
                 string fileDirectory = Directory.GetParent(this.workingDirectory).Parent.FullName + @"\ConfidentialInformation\MessageContent.txt";
@@ -65,6 +66,10 @@ namespace EmailCheck
                 }
             }
             return mail;
+        }
+        protected void ClosedHandler(object sender, EventArgs e)
+        {
+            this.mainWindow.Show();
         }
     }
 }
