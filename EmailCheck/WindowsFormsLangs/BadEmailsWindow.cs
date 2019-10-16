@@ -16,6 +16,7 @@ namespace EmailCheck
         public BadEmailsWindow(MainWindow mainWindow, List<string> badEmails)
         {
             InitializeComponent();
+            this.FormClosed += ClosedHandler;
             this.mainWindow = mainWindow;
             foreach (string email in badEmails) {
                 RichTextBox_BadEmails.AppendText(email);
@@ -26,6 +27,11 @@ namespace EmailCheck
         private void Button_OK_Click(object sender, EventArgs e)
         {
             this.Dispose();
+            this.mainWindow.Enabled = true;
+        }
+        protected void ClosedHandler(object sender, EventArgs e)
+        {
+            this.mainWindow.Enabled = true;
         }
     }
 }

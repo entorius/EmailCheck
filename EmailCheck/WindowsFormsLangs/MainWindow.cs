@@ -7,6 +7,7 @@ using System.Linq;
 using MimeKit;
 using EmailCheck.HelperClasses;
 using System.Net.Mail;
+using EmailCheck.WindowsFormsLangs;
 
 namespace EmailCheck
 {
@@ -19,6 +20,8 @@ namespace EmailCheck
         public List<string> emailsToSend = new List<string>();
         public bool datePickerEnabled = false;
         string workingDirectory = Environment.CurrentDirectory;
+        BadEmailsWindow badEmailsWindow;
+        private List<string> badEmailList = new List<string>();
         public MainWindow()
         {
             InitializeComponent();
@@ -130,10 +133,12 @@ namespace EmailCheck
         {
             if (currentUser != null)
             {
+                bool fromExcel = false;
                 Regex rgx = new Regex(@"^\s+$");
                 List<string> allEmailsList = new List<string>();
                 List<string> goodEmailList = new List<string>();
-                List<string> badEmailList = new List<string>();
+                OpenFileDialog_ExportAddressList.Disposed += MainWindowEnable;
+                this.Enabled = false;
                 if (rgx.IsMatch(TextBox_Emails.Text) || TextBox_Emails.Text == "")
                 {
                     OpenFileDialog_ExportAddressList.Filter = "Excel Files|*.xlsx;*.xlsm;*.xlsb;*.xltx;*.xltm;*.xls;*.xlt;*.xls;*.xml;*.xml;*.xlam;*.xla;*.xlw;*.xlr;";
@@ -142,25 +147,29 @@ namespace EmailCheck
                     {
                         allEmailsList = ExcelFuncions.GetEmailsFromFile(OpenFileDialog_ExportAddressList.FileName);
                     }
+                    if(result == DialogResult.Cancel || result == DialogResult.Abort)
+                    {
+                        OpenFileDialog_ExportAddressList.Dispose();
+                    }
+                    
+                    fromExcel = true;
                 }
                 else
                 {
                     string allEmailsString = TextBox_Emails.Text;
+                    Console.WriteLine(allEmailsString);
                     allEmailsList = allEmailsString.Split('\n').ToList();
+                    Console.WriteLine(allEmailsList[0]);
                 }
                 
                 
-                foreach (string email in allEmailsList)
+                for (int i=0;i< allEmailsList.Count;i++)
                 {
-                    string newEmail = email.Remove(email.Count()-1);
-                    //if (regex.IsMatch(email))
-                    //{
-                    //    goodEmailList.Add(email);
-                    //}
-                    //else
-                    //{
-                    //    badEmailList.Add(email);
-                    //}
+                    string newEmail = allEmailsList[i];
+                    if (allEmailsList.Count - 1!=i && !fromExcel)
+                    {
+                        newEmail = newEmail.Remove(newEmail.Count() - 1);
+                    }
                     try
                     {
 
@@ -170,13 +179,27 @@ namespace EmailCheck
                     }
                     catch (FormatException)
                     {
-                        badEmailList.Add(newEmail);
+                        this.badEmailList.Add(newEmail);
                     }
                 }
                 SendEmail sendEmail = new SendEmail(currentUser.GetEmail(), currentUser.GetPassword());
                 List<string> emails = goodEmailList;
                 sendEmail.SendEmails(emails, mail.GetSubject(), mail.GetBody());
-                if (badEmailList.Count > 0)
+                Success successWindow;
+                if (goodEmailList.Count > 0)
+                {
+                    successWindow = new Success("Laiškai išsiųsti sėkmingai!");
+                    successWindow.Show();
+                    if (badEmailList.Count > 0)
+                    {
+                        successWindow.Disposed += SuccessClosedBadEmails;
+                    }
+                    else
+                    {
+                        successWindow.Disposed += MainWindowEnable;
+                    }
+                }
+                else if (badEmailList.Count > 0)
                 {
                     BadEmailsWindow badEmailsWindow = new BadEmailsWindow(this,badEmailList);
                     badEmailsWindow.Show();
@@ -226,6 +249,15 @@ namespace EmailCheck
         protected void ClosedHandler(object sender, EventArgs e)
         {
             this.Show();
+        }
+        protected void SuccessClosedBadEmails(object sender, EventArgs e)
+        {
+            this.badEmailsWindow = new BadEmailsWindow(this, badEmailList);
+            this.badEmailsWindow.Show();
+        }
+        protected void MainWindowEnable(object sender, EventArgs e)
+        {
+            this.Enabled = true;
         }
     }
 }
