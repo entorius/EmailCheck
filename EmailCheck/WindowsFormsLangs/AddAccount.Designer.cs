@@ -57,44 +57,56 @@
             // Label_Email
             // 
             this.Label_Email.AutoSize = true;
+            this.Label_Email.BackColor = System.Drawing.Color.Transparent;
+            this.Label_Email.Font = new System.Drawing.Font("Ubuntu", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
             this.Label_Email.Location = new System.Drawing.Point(57, 76);
             this.Label_Email.Name = "Label_Email";
-            this.Label_Email.Size = new System.Drawing.Size(51, 17);
+            this.Label_Email.Size = new System.Drawing.Size(56, 17);
             this.Label_Email.TabIndex = 2;
             this.Label_Email.Text = "*e-mail";
             // 
             // Label_Password
             // 
             this.Label_Password.AutoSize = true;
+            this.Label_Password.BackColor = System.Drawing.Color.Transparent;
+            this.Label_Password.Font = new System.Drawing.Font("Ubuntu", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
             this.Label_Password.Location = new System.Drawing.Point(53, 149);
             this.Label_Password.Name = "Label_Password";
-            this.Label_Password.Size = new System.Drawing.Size(73, 17);
+            this.Label_Password.Size = new System.Drawing.Size(77, 17);
             this.Label_Password.TabIndex = 3;
             this.Label_Password.Text = "*password";
             // 
             // Button_AddAccount
             // 
+            this.Button_AddAccount.BackColor = System.Drawing.Color.Orange;
+            this.Button_AddAccount.BackgroundImage = global::EmailCheck.Properties.Resources.image;
             this.Button_AddAccount.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Button_AddAccount.Font = new System.Drawing.Font("Ubuntu", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.Button_AddAccount.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Button_AddAccount.Image = global::EmailCheck.Properties.Resources.image;
             this.Button_AddAccount.Location = new System.Drawing.Point(368, 205);
             this.Button_AddAccount.Name = "Button_AddAccount";
             this.Button_AddAccount.Size = new System.Drawing.Size(150, 47);
             this.Button_AddAccount.TabIndex = 4;
             this.Button_AddAccount.Text = "Pridėti";
-            this.Button_AddAccount.UseVisualStyleBackColor = true;
+            this.Button_AddAccount.UseVisualStyleBackColor = false;
             this.Button_AddAccount.Click += new System.EventHandler(this.Button_AddAccount_Click);
             // 
             // Label_MustFields
             // 
             this.Label_MustFields.AutoSize = true;
+            this.Label_MustFields.BackColor = System.Drawing.Color.Transparent;
+            this.Label_MustFields.Font = new System.Drawing.Font("Ubuntu", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
             this.Label_MustFields.Location = new System.Drawing.Point(34, 258);
             this.Label_MustFields.Name = "Label_MustFields";
-            this.Label_MustFields.Size = new System.Drawing.Size(129, 17);
+            this.Label_MustFields.Size = new System.Drawing.Size(135, 17);
             this.Label_MustFields.TabIndex = 6;
             this.Label_MustFields.Text = "* Privalomi laukeliai";
             // 
             // RichTextBox_Error
             // 
             this.RichTextBox_Error.Cursor = System.Windows.Forms.Cursors.No;
+            this.RichTextBox_Error.Font = new System.Drawing.Font("Ubuntu", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
             this.RichTextBox_Error.ForeColor = System.Drawing.Color.Red;
             this.RichTextBox_Error.Location = new System.Drawing.Point(27, 217);
             this.RichTextBox_Error.Name = "RichTextBox_Error";
@@ -107,6 +119,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::EmailCheck.Properties.Resources.backgroundForApp;
             this.ClientSize = new System.Drawing.Size(545, 309);
             this.Controls.Add(this.RichTextBox_Error);
             this.Controls.Add(this.Label_MustFields);

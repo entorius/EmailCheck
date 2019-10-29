@@ -33,14 +33,25 @@ namespace EmailCheck
 
         private void Button_Save_Click(object sender, EventArgs e)
         {
-            this.SaveWithNames(this.saveWithDate,this.dateFrom,this.dateTo,this.allEmails);
+            bool saved = this.SaveWithNames(this.saveWithDate, CheckBox_UseGeneratedName.Checked,this.dateFrom,this.dateTo,this.allEmails);
+            if (saved)
+            {
+                mainWindow.Show();
+                this.mainWindow.Enabled = true;
+                this.Dispose();
+            }
+            else
+            {
+                Warning warning = new Warning(this, "Išsaugojimas nesėkmingas." + Environment.NewLine + "Gali būti kad failas į kurį norite išsaugoti atidarytas");
+                warning.Show();
+            }
         }
-        private void SaveWithNames(bool saveWithDate,DateTime dateFrom, DateTime dateTo, List<string> allEmails)
+        private bool SaveWithNames(bool savingWithDate,bool saveWithDate,DateTime dateFrom, DateTime dateTo, List<string> allEmails)            //savingWithDate - in main window checked to save with date, saveWithDate - save with date in file name
         {
             string excelFileName = "some";
-            if (CheckBox_UseGeneratedName.Checked) {
+            if (saveWithDate) {
                 excelFileName = DateTime.Now.Date.ToString("MM/dd/yyyy") + "-AdresųEksportas";
-                if (saveWithDate) {
+                if (savingWithDate) {
                     excelFileName = excelFileName +"-" + dateFrom.Date.ToString("MM/dd/yyyy") + "-" + dateTo.Date.ToString("MM/dd/yyyy");
                 }
             }
@@ -48,11 +59,8 @@ namespace EmailCheck
             {
                 excelFileName = TextBox_FileName.Text;
             }
-            ExcelFuncions.AddEmailsToFile(excelFileName, this.savingFolderName, allEmails);
-            mainWindow.Show();
-            this.mainWindow.Enabled = true;
-            this.Dispose();
-
+            bool saved = ExcelFuncions.AddEmailsToFile(excelFileName, this.savingFolderName, allEmails);
+            return saved;
         }
 
         private void Button_Reject_Click(object sender, EventArgs e)

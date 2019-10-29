@@ -1,4 +1,5 @@
 ﻿using EmailCheck.HelperClasses;
+using MailKit.Net.Imap;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -42,10 +43,13 @@ namespace EmailCheck
             }
             if (!emailExists)
             {
-                    bool x = await CheckEmail.Login(this,this.TextBox_Email.Text, this.TextBox_Password.Text);
-                if (x)
+                    ImapClient x = await CheckEmail.Login(this.TextBox_Email.Text, this.TextBox_Password.Text);
+
+                if (x == null)
                 {
-                    Warning warning = new Warning(this, "Ivedėte neteisingą el. paštą arba slaptažodį");
+                    Warning warning = new Warning(this, "Nesėkmingas prisijugimas kuri galėjo įvykti dėl:" + Environment.NewLine 
+                        + "1.Ivedėte neteisingą el. paštą arba slaptažodį" + Environment.NewLine 
+                        + "2.Nepavyko prisijungti prie google serverio" + Environment.NewLine + "3.Blogas interneto ryšys");
                     warning.Show();
                     RichTextBox_Error.Text = "Ivedėte neteisingą el. paštą arba slaptažodį";
                     exceptionThrown = true;

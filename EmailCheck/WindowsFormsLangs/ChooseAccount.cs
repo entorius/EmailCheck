@@ -44,7 +44,7 @@ namespace EmailCheck
                 string selectedEmail = ListBox_Accounts.SelectedItem.ToString();
                 User user = mainWindow.allUsers.Find(x => x.GetEmail() == selectedEmail);
                 mainWindow.currentUser = user;
-                this.mainWindow.email_Name_Box.Text = "Current account: " + mainWindow.currentUser.GetEmail();
+                this.mainWindow.email_Name_Box.Text = "Dabartinė paskyra: " + mainWindow.currentUser.GetEmail();
                 this.mainWindow.Enabled = true;
                 this.Dispose();
             }

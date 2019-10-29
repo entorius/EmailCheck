@@ -20,23 +20,26 @@ namespace EmailCheck
             InitializeComponent();
             this.mainWindow = mainWindow;
             this.FormClosed += ClosedHandler;
-            if (mail.GetBody() == "" || mail.GetSubject() == "")
-            {
-                string fileDirectory = Directory.GetParent(this.workingDirectory).Parent.FullName + @"\ConfidentialInformation\MessageContent.txt";
-                mail = this.ReadMailFromFile(fileDirectory);
-            }
+            mail = GetMessageContentFromFile(mail);
             TextBox_Subject.Text = mail.GetSubject();
             TextBox_Body.Text = mail.GetBody();
         }
 
         private void Button_Save_Click(object sender, EventArgs e)
         {
-            string fileDirectory = Directory.GetParent(this.workingDirectory).Parent.FullName + @"\ConfidentialInformation\MessageContent.txt";
-            File.WriteAllText(fileDirectory, "subj: \n" + TextBox_Subject.Text + "\n body:#$%&&*(* \n" + TextBox_Body.Text);
-            this.mainWindow.mail.SetSubject(TextBox_Subject.Text);
-            this.mainWindow.mail.SetBody(TextBox_Body.Text);
-            mainWindow.Show();
-            this.Dispose();
+            bool contentSaved = SaveMessageContentToFile(TextBox_Subject.Text, TextBox_Body.Text);
+            if (contentSaved)
+            {
+                this.mainWindow.mail.SetSubject(TextBox_Subject.Text);
+                this.mainWindow.mail.SetBody(TextBox_Body.Text);
+                mainWindow.Show();
+                this.Dispose();
+            }
+            else
+            {
+                Warning warning = new Warning(this, "Nepavyko išsaugoti jūsų žinutės." + Environment.NewLine +"Gali būti kad žinučių saugojimo failas atidarytas.");
+                warning.Show();
+            }
         }
 
         private void ButtonReject_Click(object sender, EventArgs e)
@@ -66,6 +69,28 @@ namespace EmailCheck
                 }
             }
             return mail;
+        }
+        private bool SaveMessageContentToFile(string subject,string body)
+        {
+            try { 
+            string fileDirectory = Directory.GetParent(this.workingDirectory).Parent.FullName + @"\ConfidentialInformation\MessageContent.txt";
+            File.WriteAllText(fileDirectory, "subj: \n" + subject + "\n body:#$%&&*(* \n" + body);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+        private Mail GetMessageContentFromFile(Mail mail)
+        {
+            Mail newMail = new Mail(mail.GetSubject(), mail.GetBody());
+            if (mail.GetBody() == "" || mail.GetSubject() == "")
+            {
+                string fileDirectory = Directory.GetParent(this.workingDirectory).Parent.FullName + @"\ConfidentialInformation\MessageContent.txt";
+                newMail = this.ReadMailFromFile(fileDirectory);
+            }
+            return newMail;
         }
         protected void ClosedHandler(object sender, EventArgs e)
         {

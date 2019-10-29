@@ -46,22 +46,30 @@
             // 
             // Button_AddAccount
             // 
+            this.Button_AddAccount.BackColor = System.Drawing.Color.Transparent;
+            this.Button_AddAccount.BackgroundImage = global::EmailCheck.Properties.Resources.image;
             this.Button_AddAccount.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Button_AddAccount.Font = new System.Drawing.Font("Ubuntu", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.Button_AddAccount.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Button_AddAccount.Image = global::EmailCheck.Properties.Resources.image;
             this.Button_AddAccount.Location = new System.Drawing.Point(561, 49);
             this.Button_AddAccount.Name = "Button_AddAccount";
             this.Button_AddAccount.Size = new System.Drawing.Size(268, 43);
             this.Button_AddAccount.TabIndex = 0;
             this.Button_AddAccount.Text = "Pasirinkti paskyrą";
-            this.Button_AddAccount.UseVisualStyleBackColor = true;
+            this.Button_AddAccount.UseVisualStyleBackColor = false;
             this.Button_AddAccount.Click += new System.EventHandler(this.Button_AddAccount_Click);
             // 
             // email_Name_Box
             // 
+            this.email_Name_Box.BackColor = System.Drawing.SystemColors.Window;
             this.email_Name_Box.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.email_Name_Box.Location = new System.Drawing.Point(495, 28);
+            this.email_Name_Box.Font = new System.Drawing.Font("Ubuntu", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.email_Name_Box.Location = new System.Drawing.Point(495, 21);
+            this.email_Name_Box.Multiline = true;
             this.email_Name_Box.Name = "email_Name_Box";
             this.email_Name_Box.ReadOnly = true;
-            this.email_Name_Box.Size = new System.Drawing.Size(280, 15);
+            this.email_Name_Box.Size = new System.Drawing.Size(280, 22);
             this.email_Name_Box.TabIndex = 3;
             // 
             // TextBox_Emails
@@ -84,10 +92,14 @@
             // 
             // Button_EmailText
             // 
+            this.Button_EmailText.BackgroundImage = global::EmailCheck.Properties.Resources.image;
             this.Button_EmailText.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Button_EmailText.Location = new System.Drawing.Point(613, 379);
+            this.Button_EmailText.Font = new System.Drawing.Font("Ubuntu", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.Button_EmailText.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Button_EmailText.Image = global::EmailCheck.Properties.Resources.image;
+            this.Button_EmailText.Location = new System.Drawing.Point(573, 375);
             this.Button_EmailText.Name = "Button_EmailText";
-            this.Button_EmailText.Size = new System.Drawing.Size(162, 43);
+            this.Button_EmailText.Size = new System.Drawing.Size(242, 43);
             this.Button_EmailText.TabIndex = 6;
             this.Button_EmailText.Text = "Parinkti laiško turinį";
             this.Button_EmailText.UseVisualStyleBackColor = true;
@@ -95,7 +107,11 @@
             // 
             // Button_Send
             // 
+            this.Button_Send.BackgroundImage = global::EmailCheck.Properties.Resources.image;
             this.Button_Send.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Button_Send.Font = new System.Drawing.Font("Ubuntu", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.Button_Send.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Button_Send.Image = global::EmailCheck.Properties.Resources.image;
             this.Button_Send.Location = new System.Drawing.Point(613, 316);
             this.Button_Send.Name = "Button_Send";
             this.Button_Send.Size = new System.Drawing.Size(162, 43);
@@ -106,6 +122,10 @@
             // 
             // DateTimePicker_DateFrom
             // 
+            this.DateTimePicker_DateFrom.CalendarFont = new System.Drawing.Font("Ubuntu", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.DateTimePicker_DateFrom.CalendarMonthBackground = System.Drawing.Color.White;
+            this.DateTimePicker_DateFrom.CalendarTitleBackColor = System.Drawing.Color.White;
+            this.DateTimePicker_DateFrom.CalendarTitleForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.DateTimePicker_DateFrom.Cursor = System.Windows.Forms.Cursors.Default;
             this.DateTimePicker_DateFrom.Location = new System.Drawing.Point(625, 158);
             this.DateTimePicker_DateFrom.Name = "DateTimePicker_DateFrom";
@@ -114,6 +134,7 @@
             // 
             // DateTimePicker_DateTo
             // 
+            this.DateTimePicker_DateTo.CalendarFont = new System.Drawing.Font("Ubuntu", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
             this.DateTimePicker_DateTo.Location = new System.Drawing.Point(625, 201);
             this.DateTimePicker_DateTo.Name = "DateTimePicker_DateTo";
             this.DateTimePicker_DateTo.Size = new System.Drawing.Size(268, 22);
@@ -122,30 +143,39 @@
             // Label_DateFrom
             // 
             this.Label_DateFrom.AutoSize = true;
+            this.Label_DateFrom.BackColor = System.Drawing.Color.Transparent;
+            this.Label_DateFrom.Font = new System.Drawing.Font("Ubuntu", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
             this.Label_DateFrom.Location = new System.Drawing.Point(518, 158);
             this.Label_DateFrom.Name = "Label_DateFrom";
-            this.Label_DateFrom.Size = new System.Drawing.Size(64, 17);
+            this.Label_DateFrom.Size = new System.Drawing.Size(79, 21);
             this.Label_DateFrom.TabIndex = 10;
             this.Label_DateFrom.Text = "data nuo";
             // 
             // Label_DateTo
             // 
             this.Label_DateTo.AutoSize = true;
+            this.Label_DateTo.BackColor = System.Drawing.Color.Transparent;
+            this.Label_DateTo.Font = new System.Drawing.Font("Ubuntu", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
             this.Label_DateTo.Location = new System.Drawing.Point(518, 201);
             this.Label_DateTo.Name = "Label_DateTo";
-            this.Label_DateTo.Size = new System.Drawing.Size(53, 17);
+            this.Label_DateTo.Size = new System.Drawing.Size(69, 21);
             this.Label_DateTo.TabIndex = 11;
             this.Label_DateTo.Text = "data iki";
             // 
             // Button_ExportAddressList
             // 
+            this.Button_ExportAddressList.BackColor = System.Drawing.SystemColors.Control;
+            this.Button_ExportAddressList.BackgroundImage = global::EmailCheck.Properties.Resources.image;
             this.Button_ExportAddressList.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Button_ExportAddressList.Font = new System.Drawing.Font("Ubuntu", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.Button_ExportAddressList.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Button_ExportAddressList.Image = global::EmailCheck.Properties.Resources.image;
             this.Button_ExportAddressList.Location = new System.Drawing.Point(496, 255);
             this.Button_ExportAddressList.Name = "Button_ExportAddressList";
             this.Button_ExportAddressList.Size = new System.Drawing.Size(398, 43);
             this.Button_ExportAddressList.TabIndex = 12;
             this.Button_ExportAddressList.Text = "Eksportuoti adresų sąrašą";
-            this.Button_ExportAddressList.UseVisualStyleBackColor = true;
+            this.Button_ExportAddressList.UseVisualStyleBackColor = false;
             this.Button_ExportAddressList.Click += new System.EventHandler(this.Button_ExportAddressList_Click);
             // 
             // OpenFileDialog_ExportAddressList
@@ -155,19 +185,22 @@
             // CheckBox_UseDates
             // 
             this.CheckBox_UseDates.AutoSize = true;
+            this.CheckBox_UseDates.BackColor = System.Drawing.Color.Transparent;
             this.CheckBox_UseDates.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.CheckBox_UseDates.Font = new System.Drawing.Font("Ubuntu", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
             this.CheckBox_UseDates.Location = new System.Drawing.Point(521, 231);
             this.CheckBox_UseDates.Name = "CheckBox_UseDates";
-            this.CheckBox_UseDates.Size = new System.Drawing.Size(153, 21);
+            this.CheckBox_UseDates.Size = new System.Drawing.Size(156, 21);
             this.CheckBox_UseDates.TabIndex = 14;
             this.CheckBox_UseDates.Text = "Naudoti datų rėžius";
-            this.CheckBox_UseDates.UseVisualStyleBackColor = true;
+            this.CheckBox_UseDates.UseVisualStyleBackColor = false;
             this.CheckBox_UseDates.CheckedChanged += new System.EventHandler(this.CheckBox_UseDates_CheckedChanged);
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::EmailCheck.Properties.Resources.backgroundForApp;
             this.ClientSize = new System.Drawing.Size(905, 450);
             this.Controls.Add(this.CheckBox_UseDates);
             this.Controls.Add(this.Button_ExportAddressList);

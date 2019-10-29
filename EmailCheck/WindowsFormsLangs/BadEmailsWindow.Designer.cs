@@ -34,6 +34,10 @@
             // 
             // Button_OK
             // 
+            this.Button_OK.BackgroundImage = global::EmailCheck.Properties.Resources.image;
+            this.Button_OK.Font = new System.Drawing.Font("Ubuntu", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.Button_OK.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Button_OK.Image = global::EmailCheck.Properties.Resources.image;
             this.Button_OK.Location = new System.Drawing.Point(279, 392);
             this.Button_OK.Name = "Button_OK";
             this.Button_OK.Size = new System.Drawing.Size(126, 37);
@@ -44,6 +48,7 @@
             // 
             // RichTextBox_BadEmails
             // 
+            this.RichTextBox_BadEmails.BackColor = System.Drawing.SystemColors.Control;
             this.RichTextBox_BadEmails.ForeColor = System.Drawing.Color.Red;
             this.RichTextBox_BadEmails.Location = new System.Drawing.Point(12, 23);
             this.RichTextBox_BadEmails.Name = "RichTextBox_BadEmails";
@@ -56,6 +61,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::EmailCheck.Properties.Resources.backgroundForApp;
             this.ClientSize = new System.Drawing.Size(710, 450);
             this.Controls.Add(this.RichTextBox_BadEmails);
             this.Controls.Add(this.Button_OK);

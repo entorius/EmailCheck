@@ -1,7 +1,9 @@
-﻿using OfficeOpenXml;
+﻿using EmailCheck.HelperClasses;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows.Forms;
 
 namespace EmailCheck
 {
@@ -23,19 +25,32 @@ namespace EmailCheck
             }
             return emails;
         }
-        public static void AddEmailsToFile(string fileName, string savingFolderName, List<string> emails)
+        public static bool AddEmailsToFile(string fileName, string savingFolderName, List<string> emails)
         {
             using (ExcelPackage excel = new ExcelPackage())
             {
-                string excelFilePath = savingFolderName + @"\" + fileName + ".xlsx";
-                FileInfo excelFile = new FileInfo(excelFilePath);
-                ExcelPackage pck = excel;
-                var ws = excel.Workbook.Worksheets.Add("El. paštų sąrašas");
-                excel.SaveAs(excelFile);
-                ws.View.ShowGridLines = false;
-                var sheetCells = ws.Cells["A1:A" + emails.Count];
-                sheetCells.LoadFromCollection(emails);
-                excel.SaveAs(excelFile);
+                try
+                {
+                    string excelFilePath = savingFolderName + @"\" + fileName + ".xlsx";
+                    for(int i=0;i<emails.Count;i++)
+                    {
+                        emails[i] = EmailStringFormater.deleteCC(emails[i]);
+                        emails[i] = EmailStringFormater.deleteContentType(emails[i]);
+                    }
+                    FileInfo excelFile = new FileInfo(excelFilePath);
+                    ExcelPackage pck = excel;
+                    var ws = excel.Workbook.Worksheets.Add("El. paštų sąrašas");
+                    excel.SaveAs(excelFile);
+                    ws.View.ShowGridLines = false;
+                    var sheetCells = ws.Cells["A1:A" + emails.Count];
+                    sheetCells.LoadFromCollection(emails);
+                    excel.SaveAs(excelFile);
+                    return true;
+                }
+                catch (InvalidOperationException e)
+                {
+                    return false;
+                }
             }
         }
 

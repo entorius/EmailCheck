@@ -56,9 +56,11 @@
             // Label_Subject
             // 
             this.Label_Subject.AutoSize = true;
+            this.Label_Subject.BackColor = System.Drawing.Color.Transparent;
+            this.Label_Subject.Font = new System.Drawing.Font("Ubuntu", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
             this.Label_Subject.Location = new System.Drawing.Point(24, 32);
             this.Label_Subject.Name = "Label_Subject";
-            this.Label_Subject.Size = new System.Drawing.Size(84, 17);
+            this.Label_Subject.Size = new System.Drawing.Size(93, 20);
             this.Label_Subject.TabIndex = 2;
             this.Label_Subject.Text = "Laiško tema";
             this.Label_Subject.UseWaitCursor = true;
@@ -66,15 +68,19 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Ubuntu", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
             this.label1.Location = new System.Drawing.Point(24, 91);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(95, 17);
+            this.label1.Size = new System.Drawing.Size(106, 20);
             this.label1.TabIndex = 3;
             this.label1.Text = "Laiško turinys";
             // 
             // Button_Save
             // 
             this.Button_Save.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Button_Save.Font = new System.Drawing.Font("Ubuntu", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.Button_Save.Image = global::EmailCheck.Properties.Resources.image;
             this.Button_Save.Location = new System.Drawing.Point(564, 381);
             this.Button_Save.Name = "Button_Save";
             this.Button_Save.Size = new System.Drawing.Size(185, 66);
@@ -86,6 +92,8 @@
             // ButtonReject
             // 
             this.ButtonReject.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ButtonReject.Font = new System.Drawing.Font("Ubuntu", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.ButtonReject.Image = global::EmailCheck.Properties.Resources.image;
             this.ButtonReject.Location = new System.Drawing.Point(137, 381);
             this.ButtonReject.Name = "ButtonReject";
             this.ButtonReject.Size = new System.Drawing.Size(185, 66);
@@ -98,6 +106,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::EmailCheck.Properties.Resources.backgroundForApp;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.ButtonReject);
             this.Controls.Add(this.Button_Save);

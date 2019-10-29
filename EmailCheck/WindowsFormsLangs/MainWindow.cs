@@ -25,7 +25,7 @@ namespace EmailCheck
         public MainWindow()
         {
             InitializeComponent();
-            this.email_Name_Box.Text = "Current account:";
+            this.email_Name_Box.Text = "Dabartinė paskyra:";
 
             string fileDirectory = Directory.GetParent(this.workingDirectory).Parent.FullName + @"\ConfidentialInformation\UsersEmailCredentials.txt";
             string allAccountsInformation = File.ReadAllText(fileDirectory);
@@ -65,15 +65,18 @@ namespace EmailCheck
             {
                 if (this.DateTimePicker_DateFrom.Value > this.DateTimePicker_DateTo.Value)
                 {
-                    DateWarning = new Warning(this,"Data nuo yra didesnė nei data iki");
-                    correctDate = false;
+                    if (this.DateTimePicker_DateFrom.Value.Date != this.DateTimePicker_DateTo.Value.Date)
+                    {
+                        DateWarning = new Warning(this, "Data nuo yra didesnė nei data iki");
+                        correctDate = false;
+                    }
                 }
-                else if (DateTime.Now < this.DateTimePicker_DateTo.Value)
+                else if (DateTime.Now < this.DateTimePicker_DateTo.Value.Date)
                 {
                     DateWarning = new Warning(this,"Data iki pasirinkta ateityje");
                     correctDate = false;
                 }
-                else if (DateTime.Now < this.DateTimePicker_DateFrom.Value)
+                else if (DateTime.Now < this.DateTimePicker_DateFrom.Value.Date)
                 {
                     DateWarning = new Warning(this,"Data nuo pasirinkta ateityje");
                     correctDate = false;
@@ -111,11 +114,27 @@ namespace EmailCheck
                     List<MimeMessage> allEmails = datePickerEnabled ?
                     await CheckEmail.FetchAllMailbotMessages(currentUser.GetEmail(), currentUser.GetPassword(), DateTimePicker_DateFrom.Value, DateTimePicker_DateTo.Value) :
                     await CheckEmail.FetchAllMailbotMessages(currentUser.GetEmail(), currentUser.GetPassword());
-                    strfoldername = FolderBrowserDialog_DefaultExcelSavingPath.SelectedPath;
-                    emailsToSend = CheckEmail.CollectToEmailsFromMessages(allEmails.ConvertAll(x => x.Body.ToString()));
-                    File.WriteAllText(filePathSavingPath, strfoldername);
-                    EmailsSaveWindow saveWindow = new EmailsSaveWindow(this, datePickerEnabled, strfoldername, emailsToSend, DateTimePicker_DateFrom.Value, DateTimePicker_DateTo.Value);
-                    saveWindow.Show();
+                    if (allEmails != null)
+                    {
+                        strfoldername = FolderBrowserDialog_DefaultExcelSavingPath.SelectedPath;
+
+                        emailsToSend = CheckEmail.CollectToEmailsFromMessages(allEmails.ConvertAll(x => x.Body.ToString()));
+                        var emailsToSengGrouped = emailsToSend.GroupBy(u => u).Select(grp => new { Text = grp.Key, Count = grp.Count() }).ToList();
+                        emailsToSend = new List<string>();
+                        foreach (var email in emailsToSengGrouped)
+                        {
+                            emailsToSend.Add(email.Text);
+                        }
+                        File.WriteAllText(filePathSavingPath, strfoldername);
+                        EmailsSaveWindow saveWindow = new EmailsSaveWindow(this, datePickerEnabled, strfoldername, emailsToSend, DateTimePicker_DateFrom.Value, DateTimePicker_DateTo.Value);
+                        saveWindow.Show();
+                    }
+                    else
+                    {
+                        this.Show();
+                        Warning warning = new Warning(this, "Nesėkmingas išsaugojimas kuris galėjo įvykti dėl:" + Environment.NewLine
+                        + "1.Nepavyko prisijungti prie google serverio" + Environment.NewLine + "2.Blogas interneto ryšys");
+                    }
                 }
                 else
                 {
@@ -137,8 +156,10 @@ namespace EmailCheck
                 Regex rgx = new Regex(@"^\s+$");
                 List<string> allEmailsList = new List<string>();
                 List<string> goodEmailList = new List<string>();
-                OpenFileDialog_ExportAddressList.Disposed += MainWindowEnable;
                 this.Enabled = false;
+                badEmailList = new List<string>();
+
+                OpenFileDialog_ExportAddressList.Disposed += MainWindowEnableHandler;
                 if (rgx.IsMatch(TextBox_Emails.Text) || TextBox_Emails.Text == "")
                 {
                     OpenFileDialog_ExportAddressList.Filter = "Excel Files|*.xlsx;*.xlsm;*.xlsb;*.xltx;*.xltm;*.xls;*.xlt;*.xls;*.xml;*.xml;*.xlam;*.xla;*.xlw;*.xlr;";
@@ -157,25 +178,24 @@ namespace EmailCheck
                 else
                 {
                     string allEmailsString = TextBox_Emails.Text;
-                    Console.WriteLine(allEmailsString);
                     allEmailsList = allEmailsString.Split('\n').ToList();
-                    Console.WriteLine(allEmailsList[0]);
                 }
-                
-                
-                for (int i=0;i< allEmailsList.Count;i++)
+
+
+                for (int i = 0; i < allEmailsList.Count; i++)
                 {
                     string newEmail = allEmailsList[i];
-                    if (allEmailsList.Count - 1!=i && !fromExcel)
+                    if (allEmailsList.Count - 1 != i && !fromExcel)
                     {
                         newEmail = newEmail.Remove(newEmail.Count() - 1);
                     }
                     try
                     {
-
-                        MailAddress m = new MailAddress(newEmail);
-
-                        goodEmailList.Add(newEmail);
+                        if (newEmail != null && newEmail != "" && !newEmail.Contains(Environment.NewLine))
+                        {
+                            MailAddress m = new MailAddress(newEmail);
+                            goodEmailList.Add(newEmail);
+                        }
                     }
                     catch (FormatException)
                     {
@@ -192,16 +212,16 @@ namespace EmailCheck
                     successWindow.Show();
                     if (badEmailList.Count > 0)
                     {
-                        successWindow.Disposed += SuccessClosedBadEmails;
+                        successWindow.Disposed += SuccessClosedBadEmailsHandler;
                     }
                     else
                     {
-                        successWindow.Disposed += MainWindowEnable;
+                        successWindow.Disposed += MainWindowEnableHandler;
                     }
                 }
                 else if (badEmailList.Count > 0)
                 {
-                    BadEmailsWindow badEmailsWindow = new BadEmailsWindow(this,badEmailList);
+                    BadEmailsWindow badEmailsWindow = new BadEmailsWindow(this, badEmailList);
                     badEmailsWindow.Show();
                 }
             }
@@ -209,27 +229,6 @@ namespace EmailCheck
             {
                 Warning warningWindow = new Warning(this,"Jūs nepasirinkote vartotojo");
                 warningWindow.Show();
-            }
-        }
-
-        private async void Button_ShowInbox_Click(object sender, EventArgs e)
-        {
-
-            List<MimeKit.MimeMessage> messageList = await CheckEmail.FetchAllMailbotMessages(currentUser.GetEmail(), currentUser.GetPassword());
-            foreach (MimeKit.MimeMessage message in messageList)
-            {
-                string messageBody = message.Body.ToString();
-                string[] splitedBody = messageBody.Split(' ');
-                List<string> selectedEmails = new List<string>();
-                for (int i = 1; i < splitedBody.Length; i++)
-                {
-                    if (splitedBody[i - 1].Contains("To:"))
-                    {
-                        string selectedEmail = splitedBody[i];
-                        selectedEmail = selectedEmail.Replace("\"", string.Empty);
-                        selectedEmails.Add(selectedEmail);
-                    }
-                }
             }
         }
 
@@ -250,14 +249,15 @@ namespace EmailCheck
         {
             this.Show();
         }
-        protected void SuccessClosedBadEmails(object sender, EventArgs e)
+        protected void SuccessClosedBadEmailsHandler(object sender, EventArgs e)
         {
             this.badEmailsWindow = new BadEmailsWindow(this, badEmailList);
             this.badEmailsWindow.Show();
         }
-        protected void MainWindowEnable(object sender, EventArgs e)
+        protected void MainWindowEnableHandler(object sender, EventArgs e)
         {
             this.Enabled = true;
         }
+
     }
 }

@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HelperClasses\EmailStringFormater.cs" />
     <Compile Include="WindowsFormsLangs\BadEmailsWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,6 +145,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="WindowsFormsLangs\Success.resx">
       <DependentUpon>Success.cs</DependentUpon>
@@ -164,6 +166,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="pictures\backgroundForApp.png" />
+    <None Include="Resources\image.png" />
+    <None Include="Resources\backgroundForApp.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

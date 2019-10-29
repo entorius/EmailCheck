@@ -36,6 +36,8 @@
             // AddAccount_Button
             // 
             this.AddAccount_Button.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.AddAccount_Button.Font = new System.Drawing.Font("Ubuntu", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.AddAccount_Button.Image = global::EmailCheck.Properties.Resources.image;
             this.AddAccount_Button.Location = new System.Drawing.Point(118, 304);
             this.AddAccount_Button.Name = "AddAccount_Button";
             this.AddAccount_Button.Size = new System.Drawing.Size(161, 53);
@@ -46,7 +48,11 @@
             // 
             // Button_ChooseAccount
             // 
+            this.Button_ChooseAccount.BackgroundImage = global::EmailCheck.Properties.Resources.image;
             this.Button_ChooseAccount.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Button_ChooseAccount.Font = new System.Drawing.Font("Ubuntu", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.Button_ChooseAccount.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Button_ChooseAccount.Image = global::EmailCheck.Properties.Resources.image;
             this.Button_ChooseAccount.Location = new System.Drawing.Point(474, 304);
             this.Button_ChooseAccount.Name = "Button_ChooseAccount";
             this.Button_ChooseAccount.Size = new System.Drawing.Size(161, 53);
@@ -69,6 +75,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::EmailCheck.Properties.Resources.backgroundForApp;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.ListBox_Accounts);
             this.Controls.Add(this.Button_ChooseAccount);

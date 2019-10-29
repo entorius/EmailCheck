@@ -35,6 +35,8 @@
             // Button_OK
             // 
             this.Button_OK.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Button_OK.Font = new System.Drawing.Font("Ubuntu", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.Button_OK.Image = global::EmailCheck.Properties.Resources.image;
             this.Button_OK.Location = new System.Drawing.Point(126, 165);
             this.Button_OK.Name = "Button_OK";
             this.Button_OK.Size = new System.Drawing.Size(106, 42);
@@ -45,6 +47,7 @@
             // 
             // TextBox_Warning
             // 
+            this.TextBox_Warning.BackColor = System.Drawing.Color.White;
             this.TextBox_Warning.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.TextBox_Warning.Location = new System.Drawing.Point(12, 12);
             this.TextBox_Warning.Multiline = true;
@@ -57,6 +60,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::EmailCheck.Properties.Resources.backgroundForApp;
             this.ClientSize = new System.Drawing.Size(368, 242);
             this.Controls.Add(this.TextBox_Warning);
             this.Controls.Add(this.Button_OK);

@@ -42,6 +42,8 @@
             // 
             // Button_OK
             // 
+            this.Button_OK.Font = new System.Drawing.Font("Ubuntu", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.Button_OK.Image = global::EmailCheck.Properties.Resources.image;
             this.Button_OK.Location = new System.Drawing.Point(160, 163);
             this.Button_OK.Name = "Button_OK";
             this.Button_OK.Size = new System.Drawing.Size(128, 55);
@@ -54,6 +56,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::EmailCheck.Properties.Resources.backgroundForApp;
             this.ClientSize = new System.Drawing.Size(467, 256);
             this.Controls.Add(this.Button_OK);
             this.Controls.Add(this.Label_Success);

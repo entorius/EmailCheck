@@ -47,20 +47,24 @@
             // CheckBox_UseGeneratedName
             // 
             this.CheckBox_UseGeneratedName.AutoSize = true;
+            this.CheckBox_UseGeneratedName.BackColor = System.Drawing.Color.Transparent;
             this.CheckBox_UseGeneratedName.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.CheckBox_UseGeneratedName.Location = new System.Drawing.Point(149, 94);
+            this.CheckBox_UseGeneratedName.Font = new System.Drawing.Font("Ubuntu", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.CheckBox_UseGeneratedName.Location = new System.Drawing.Point(119, 94);
             this.CheckBox_UseGeneratedName.Name = "CheckBox_UseGeneratedName";
-            this.CheckBox_UseGeneratedName.Size = new System.Drawing.Size(340, 21);
+            this.CheckBox_UseGeneratedName.Size = new System.Drawing.Size(380, 24);
             this.CheckBox_UseGeneratedName.TabIndex = 3;
             this.CheckBox_UseGeneratedName.Text = "Naudoti automatiškai sugeneruojamą pavadinimą";
-            this.CheckBox_UseGeneratedName.UseVisualStyleBackColor = true;
+            this.CheckBox_UseGeneratedName.UseVisualStyleBackColor = false;
             // 
             // Label_FileName
             // 
             this.Label_FileName.AutoSize = true;
-            this.Label_FileName.Location = new System.Drawing.Point(21, 36);
+            this.Label_FileName.BackColor = System.Drawing.Color.Transparent;
+            this.Label_FileName.Font = new System.Drawing.Font("Ubuntu", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.Label_FileName.Location = new System.Drawing.Point(9, 36);
             this.Label_FileName.Name = "Label_FileName";
-            this.Label_FileName.Size = new System.Drawing.Size(121, 17);
+            this.Label_FileName.Size = new System.Drawing.Size(134, 20);
             this.Label_FileName.TabIndex = 4;
             this.Label_FileName.Text = "Failo pavadinimas";
             // 
@@ -74,6 +78,8 @@
             // Button_Save
             // 
             this.Button_Save.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Button_Save.Font = new System.Drawing.Font("Ubuntu", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.Button_Save.Image = global::EmailCheck.Properties.Resources.image;
             this.Button_Save.Location = new System.Drawing.Point(341, 179);
             this.Button_Save.Name = "Button_Save";
             this.Button_Save.Size = new System.Drawing.Size(127, 44);
@@ -85,6 +91,8 @@
             // Button_Reject
             // 
             this.Button_Reject.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Button_Reject.Font = new System.Drawing.Font("Ubuntu", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.Button_Reject.Image = global::EmailCheck.Properties.Resources.image;
             this.Button_Reject.Location = new System.Drawing.Point(24, 179);
             this.Button_Reject.Name = "Button_Reject";
             this.Button_Reject.Size = new System.Drawing.Size(127, 44);
@@ -97,6 +105,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::EmailCheck.Properties.Resources.backgroundForApp;
             this.ClientSize = new System.Drawing.Size(499, 245);
             this.Controls.Add(this.Button_Reject);
             this.Controls.Add(this.Button_Save);

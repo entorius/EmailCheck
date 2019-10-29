@@ -95,5 +95,18 @@ namespace EmailCheck.HelperClasses
             }
             return randomBytes;
         }
+        public static bool SaveEncryptedString(string fileDirectory, string data)
+        {
+            try
+            {
+                string encryptedData = StringCipher.Encrypt(data, "125847elpu68795");
+                File.WriteAllText(fileDirectory, File.ReadAllText(fileDirectory) + data);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
     }
 }

@@ -13,15 +13,14 @@ namespace EmailCheck
         public static async Task<List<MimeKit.MimeMessage>> FetchAllMailbotMessages(string username, string password, DateTime dateFrom = default(DateTime), DateTime dateTo = default(DateTime))
         {
             List<MimeKit.MimeMessage> listMails = new List<MimeKit.MimeMessage>();
-            using (var client = new ImapClient())
+            var client = await Login(username, password);
+            if (client != null)
             {
-                client.Connect("imap.gmail.com", 993, true);
-                client.Authenticate(username, password);
                 client.Inbox.Open(FolderAccess.ReadOnly);
                 IList<UniqueId> uids;
                 if (dateFrom != default(DateTime) && dateTo != default(DateTime))
                 {
-                    uids = await client.Inbox.SearchAsync(SearchQuery.SubjectContains("Delivery Status Notification (Failure)").And(SearchQuery.SentAfter(dateFrom.AddDays(-1)).And(SearchQuery.SentBefore(dateTo.AddDays(1)))));
+                    uids = await client.Inbox.SearchAsync(SearchQuery.SubjectContains("Delivery Status Notification (Failure)").And(SearchQuery.SentSince(dateFrom).And(SearchQuery.SentBefore(dateTo.AddDays(1)))));
                 }
                 else
                 {
@@ -33,8 +32,13 @@ namespace EmailCheck
                     listMails.Add(message);
                 }
                 client.Disconnect(true);
+                return listMails;
             }
-            return listMails;
+            else
+            {
+                return null;
+            }
+            
         }
         public static List<string> CollectToEmailsFromMessages(List<string> messagesBody)
         {
@@ -54,21 +58,19 @@ namespace EmailCheck
             }
             return selectedEmails;
         }
-        public static async Task<bool> Login(Form form, string username, string password)
+        public static async Task<ImapClient> Login(string username, string password)
         {
-            bool exceptionThrown = false;
-            using (var client = new ImapClient())
-            {
+            var client = new ImapClient();
                 try
                 {
                     client.Connect("imap.gmail.com", 993, true);
                 }
                 catch (Exception e)
                 {
-                    Warning warning = new Warning(form, "Nepavyko prisijungti prie google serverio");                   //blogas internetas arba atsijungęs serveris
-                    warning.Show();
+                    client = null;                   //blogas internetas arba atsijungęs serveris
                 }
 
+            if (client != null) {
                 await Task.Run(() =>
                 {
                     try
@@ -77,12 +79,12 @@ namespace EmailCheck
                     }
                     catch (Exception e)
                     {
-                        exceptionThrown = true;
+                        client = null;
+
                     }
                 });
             }
-
-            return exceptionThrown;
+            return client;
         }
     }
 }
